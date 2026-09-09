@@ -1,10 +1,10 @@
-# Wolt Retention Analytics
+# 用户留存与复购分析系统
 
 **MySQL 8 · Python · Streamlit · Data quality · Cohort analysis**
 
-An independent analytics engineering portfolio project based on Wolt's public synthetic BI assignment. This repository implements the pipeline and dashboard; it is not Wolt production software or employment experience.
+A customer retention analytics system by nobyebye, covering data reconciliation, MySQL modeling, cohort metrics and interactive reporting.
 
-基于芬兰创立的 Wolt 公司公开模拟题，完成从 CSV 数据契约、对账、MySQL 建模到用户留存看板的完整项目。样本没有国家字段，不将它称为芬兰实际交易数据。
+面向餐饮与零售业务的个人数据分析项目，完成从 CSV 数据校验、对账、MySQL 建模到用户留存看板的完整流程，重点分析用户留存、30 天复购和跨业务线购买。
 
 ## 已验证结果
 

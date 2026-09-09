@@ -6,11 +6,11 @@ import plotly.express as px
 import streamlit as st
 from wolt_analytics.db import connect, rows
 
-st.set_page_config(page_title="Wolt Retention Lab", page_icon="📊", layout="wide")
-st.title("Wolt Retention Lab")
-st.caption(
-    "Independent portfolio project · MySQL 8 · Official synthetic assignment data · Not affiliated with Wolt"
+st.set_page_config(
+    page_title="Customer Retention Analytics", page_icon="📊", layout="wide"
 )
+st.title("Customer Retention Analytics")
+st.caption("By nobyebye · MySQL 8 · Cohort retention · Repeat purchase analytics")
 
 
 @st.cache_data(ttl=60)
@@ -64,9 +64,10 @@ a.metric("Cohort customers", f"{summary['cohort_users']:,}")
 b.metric("Reconciled purchase events", f"{summary['clean_events']:,}")
 c.metric("Quarantined events", f"{summary['quarantined_events']:,}")
 d.metric("Quality checks passed", len(summary["quality_checks"]))
-st.warning(
-    "Synthetic data: findings describe this dataset only. First-purchase records are included as acquisition anchors; unmatched users are excluded. No revenue or causal uplift claims."
-)
+with st.expander("Data source & methodology"):
+    st.caption(
+        "Source: Wolt's public synthetic BI assignment dataset. First-purchase records anchor acquisition cohorts; unmatched users are excluded. Findings describe this dataset, not company-wide performance."
+    )
 
 tab1, tab2, tab3 = st.tabs(
     ["Cohort retention", "30-day repeat purchase", "Data quality & volume"]

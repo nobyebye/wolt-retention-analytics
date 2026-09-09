@@ -1,1 +1,1 @@
-"""Independent portfolio project; not affiliated with Wolt."""
+"""Customer retention and repeat-purchase analytics by nobyebye."""
