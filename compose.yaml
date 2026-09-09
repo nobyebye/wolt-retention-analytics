@@ -1,0 +1,46 @@
+name: wolt-retention-analytics
+services:
+  mysql:
+    image: mysql:8.0.42
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wolt_analytics}
+      MYSQL_USER: ${MYSQL_USER:-wolt}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-local-demo-only}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-local-root-demo-only}
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  pipeline:
+    build: .
+    environment: &db_environment
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wolt_analytics}
+      MYSQL_USER: ${MYSQL_USER:-wolt}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-local-demo-only}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+    command: ["wolt-analytics", "run", "--download", "--observation-start", "2020-04-21", "--as-of", "2020-10-31"]
+  dashboard:
+    build: .
+    environment: *db_environment
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8501:8501"
+    volumes:
+      - ./artifacts:/app/artifacts:ro
+    command: ["streamlit", "run", "dashboard/app.py", "--server.address=0.0.0.0"]
+volumes:
+  mysql_data:

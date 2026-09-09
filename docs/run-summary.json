@@ -1,0 +1,45 @@
+{
+  "run_id": "65261df8-8f30-4d1a-b60f-ee4746bffe2b",
+  "source_hashes": {
+    "first_purchases.csv": "5f819a9abf1857df841e0b457e664c9968121a2fd40476b80f49623be80b7b29",
+    "purchases.csv": "cbbdac103957e1274f1fde972f28519e24830e53c1d4374dd0e1c685295ae7b5"
+  },
+  "observation_start": "2020-04-21",
+  "as_of": "2020-10-31",
+  "first_source_rows": 71257,
+  "purchase_source_rows": 227457,
+  "cohort_users": 71257,
+  "clean_events": 288569,
+  "quarantined_events": 10145,
+  "unknown_users": 3311,
+  "exact_duplicates": 0,
+  "overlapping_source_purchase_ids": 0,
+  "quality_checks": {
+    "no_orphan_events": 0,
+    "no_pre_acquisition_events": 0,
+    "rates_in_range": 0,
+    "censored_cells_are_null": 0,
+    "full_month_zero_equals_one": 0,
+    "same_line_subset": 0,
+    "repurchase_in_range": 0
+  },
+  "repurchase": [
+    {
+      "acquisition_line": "Restaurant",
+      "eligible_users": 51957,
+      "repeat_users_30d": 6883,
+      "cross_line_users_30d": 141,
+      "repeat_rate_30d": "0.13247493",
+      "cross_line_rate_30d": "0.00271378"
+    },
+    {
+      "acquisition_line": "Retail store",
+      "eligible_users": 331,
+      "repeat_users_30d": 61,
+      "cross_line_users_30d": 47,
+      "repeat_rate_30d": "0.18429003",
+      "cross_line_rate_30d": "0.14199396"
+    }
+  ],
+  "database_version": "8.0.42"
+}

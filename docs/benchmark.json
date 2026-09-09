@@ -1,0 +1,42 @@
+{
+  "database_version": "8.0.42",
+  "fact_rows": 288569,
+  "method": "1 warm-up, 7 timed runs per variant; client wall time; same user/date predicate; local warm-cache microbenchmark, not production SLA",
+  "variants": {
+    "without_secondary_indexes": {
+      "median_ms": 40.603,
+      "runs_ms": [
+        42.682,
+        40.175,
+        40.603,
+        39.422,
+        40.441,
+        43.878,
+        41.3
+      ],
+      "plan": [
+        {
+          "EXPLAIN": "-> Aggregate: count(0)  (cost=30507 rows=1) (actual time=44.8..44.8 rows=1 loops=1)\n    -> Filter: ((fact_purchase.user_id = '8960319') and (fact_purchase.purchase_date >= DATE'2020-05-01') and (fact_purchase.purchase_date < DATE'2020-11-01'))  (cost=30507 rows=1) (actual time=0.197..44.8 rows=203 loops=1)\n        -> Table scan on fact_purchase  (cost=30507 rows=299693) (actual time=0.0279..35.9 rows=288569 loops=1)\n"
+        }
+      ]
+    },
+    "with_user_date_index": {
+      "median_ms": 0.347,
+      "runs_ms": [
+        0.569,
+        0.53,
+        0.347,
+        0.268,
+        0.271,
+        0.577,
+        0.294
+      ],
+      "plan": [
+        {
+          "EXPLAIN": "-> Aggregate: count(0)  (cost=65 rows=1) (actual time=0.0582..0.0583 rows=1 loops=1)\n    -> Filter: ((fact_purchase.user_id = '8960319') and (fact_purchase.purchase_date >= DATE'2020-05-01') and (fact_purchase.purchase_date < DATE'2020-11-01'))  (cost=44.7 rows=203) (actual time=0.0087..0.0537 rows=203 loops=1)\n        -> Covering index range scan on fact_purchase using idx_user_date_line over (user_id = '8960319' AND '2020-05-01' <= purchase_date < '2020-11-01')  (cost=44.7 rows=203) (actual time=0.0075..0.0357 rows=203 loops=1)\n"
+        }
+      ]
+    }
+  },
+  "identical_result_count": 203
+}
