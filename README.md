@@ -2,9 +2,9 @@
 
 **MySQL 8 · Python · Streamlit · Data quality · Cohort analysis**
 
-A customer retention analytics system by nobyebye, covering data reconciliation, MySQL modeling, cohort metrics and interactive reporting.
+A customer retention analytics system for the Wolt restaurant and retail business scenario, covering data reconciliation, cohort metrics and repeat-purchase reporting.
 
-面向餐饮与零售业务的个人数据分析项目，完成从 CSV 数据校验、对账、MySQL 建模到用户留存看板的完整流程，重点分析用户留存、30 天复购和跨业务线购买。
+以芬兰创立的 Wolt 公司餐饮与零售业务场景为背景，解决首购与购买数据难以对账、留存指标口径不统一，以及复购和跨业务线购买缺少统一分析视图的问题。项目通过 Python 数据处理、MySQL 分层建模和交互看板，建立可重复运行的用户行为分析流程。
 
 ## 已验证结果
 
@@ -20,12 +20,17 @@ A customer retention analytics system by nobyebye, covering data reconciliation,
 13 项单元及 MySQL 集成测试已在 MySQL 8.0.42 上通过；Streamlit 加载和两种业务线/指标筛选已实测。
 完整运行记录见 [验证记录](docs/validation.md)，结果与边界见 [分析报告](docs/analysis-report.md)。
 
-## 业务问题
+## 解决的问题
 
-1. 首购来自餐饮和零售的用户，后续月份的留存有什么差异？
-2. 用户留在首购业务线，还是转向另一条业务线？
-3. 完整观察 30 天的新用户中，有多少发生复购与跨线购买？
-4. 数据缺失、未知用户和观察窗口会如何扭曲指标？
+| 问题 | 解决方式 | 项目结果 |
+|---|---|---|
+| 首购与购买记录无法直接对账 | 建立首购锚点，核对用户及订单关系，隔离无法归属的记录 | 隔离 10,145 条记录，形成可追溯的数据集 |
+| 不同业务线的留存缺少统一口径 | 按首购月份与业务线建立同期群，区分平台留存和同业务线留存 | 支持餐饮、零售用户留存对比 |
+| 观察时间不足容易造成指标偏差 | 完整月份才计算月度留存，满 30 天观察期才纳入复购分母 | 区分未观察到与真实零返回 |
+| 复购及交叉购买缺少统一视图 | 汇总 30 天复购与跨线购买，提供筛选看板和 CSV 导出 | 可比较用户回访和跨业务线购买行为 |
+| 重复执行及中途失败影响数据可靠性 | 事务刷新、并发互斥、质量检查和自动测试 | 可重复执行，失败时保留上次数据库快照 |
+
+完整背景与实现见 [项目说明](docs/project-overview.md)。
 
 具体口径见 [metric-contract.md](docs/metric-contract.md)。没有金额、成本或实验数据，不计算收入、利润或因果提升。
 
@@ -104,7 +109,7 @@ sql/                  MySQL 表结构、留存/复购/事件汇总模型
 dashboard/            Streamlit 只读交互看板
 tests/                单元测试、真实 MySQL 业务边界测试
 scripts/              可重复查询性能实验
-docs/                 指标口径、架构、分析结论、简历与面试材料
+docs/                 业务背景、问题与方案、指标口径、架构及分析结论
 data/raw/             运行时下载，Git 忽略
 artifacts/            运行结果和 CSV，Git 忽略
 .github/workflows/    MySQL 集成测试 CI
@@ -114,7 +119,7 @@ artifacts/            运行结果和 CSV，Git 忽略
 
 支持哈希溯源、原始 JSON 保存、隔离异常记录、批量导入、幂等全量刷新、并发互斥、质量闸门、失败回滚和 CSV 导出。
 当前规模适合单机批处理，尚未实现实时 CDC、调度平台或多租户权限系统。
-[架构与故障处理](docs/architecture.md) · [简历和面试说明](docs/resume-zh.md)
+[架构与故障处理](docs/architecture.md) · [项目说明](docs/project-overview.md)
 
 ## 数据与许可
 
