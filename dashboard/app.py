@@ -7,10 +7,10 @@ import streamlit as st
 from wolt_analytics.db import connect, rows
 
 st.set_page_config(
-    page_title="Customer Retention Analytics", page_icon="📊", layout="wide"
+    page_title="Wolt Customer Retention Analytics", page_icon="📊", layout="wide"
 )
-st.title("Customer Retention Analytics")
-st.caption("By nobyebye · MySQL 8 · Cohort retention · Repeat purchase analytics")
+st.title("Wolt Customer Retention Analytics")
+st.caption("MySQL 8 · Cohort retention · Repeat purchase analytics")
 
 
 @st.cache_data(ttl=60)

@@ -1,10 +1,12 @@
-# 用户留存与复购分析系统
+# Wolt 用户留存与复购分析系统
 
 **MySQL 8 · Python · Streamlit · Data quality · Cohort analysis**
 
 A customer retention analytics system for the Wolt restaurant and retail business scenario, covering data reconciliation, cohort metrics and repeat-purchase reporting.
 
 以芬兰创立的 Wolt 公司餐饮与零售业务场景为背景，解决首购与购买数据难以对账、留存指标口径不统一，以及复购和跨业务线购买缺少统一分析视图的问题。项目通过 Python 数据处理、MySQL 分层建模和交互看板，建立可重复运行的用户行为分析流程。
+
+初次了解项目，先读 [中文项目讲解](docs/walkthrough.md)，再看 [业务问题与方案](docs/project-overview.md)。
 
 ## 已验证结果
 
@@ -124,5 +126,5 @@ artifacts/            运行结果和 CSV，Git 忽略
 ## 数据与许可
 
 数据与题目来自 [woltapp/analytics-summer-intern-2022](https://github.com/woltapp/analytics-summer-intern-2022)。
-源文件为人工合成数据，版权及使用条件归原作者；本库不重新分发原始 CSV。
+源文件为人工合成数据；本库不重新分发原始 CSV。
 MIT 许可仅适用于本项目原创代码和文档。Wolt 名称仅用于来源说明，不表示官方关联。
